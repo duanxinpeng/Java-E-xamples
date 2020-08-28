@@ -132,8 +132,37 @@ public class TheadPoolTest {
         ConcurrentHashMap<String, String> cm = new ConcurrentHashMap<>();
     }
 
+    public void threadPoolTest() {
+        ThreadPoolExecutor executor = new ThreadPoolExecutor(5,10,0,
+                TimeUnit.SECONDS,new ArrayBlockingQueue<Runnable>(10));
+        for (int i = 0; i < 2; i++) {
+            Runnable task = new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(Integer.MAX_VALUE);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+            executor.execute(task);
+        }
+        Runnable task = new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(Integer.MAX_VALUE);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        executor.execute(task);
+    }
+
     public static void main(String[] args) {
         TheadPoolTest tpt = new TheadPoolTest();
-        tpt.testCacheThreadPool();
+        tpt.threadPoolTest();
     }
 }

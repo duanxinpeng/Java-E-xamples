@@ -12,7 +12,10 @@ class ThreadTest extends Thread {
 public class ThreadCreate {
     public static void main(String[] args) {
         //1. 继承Thread类
-        new ThreadTest().start();
+        ThreadTest tt = new ThreadTest();
+        tt.start();
+        tt.start();
+
         //2. Runnable 接口+Thread
         new Thread(()->{
             for (int i = 0; i < 5; i++) {
