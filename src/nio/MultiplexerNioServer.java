@@ -26,6 +26,7 @@ public class MultiplexerNioServer implements Runnable{
             // ServerSocketChannel上面是连接操作，SocketChannel上面是读写操作！
             // selector 放到操作系统中就相当于一个轻量级的线程管理器？
             selector = Selector.open();
+            // 注册回调函数？
             serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
             System.out.println("step1: ServerSocketChannel");
         } catch (IOException e) {

@@ -16,7 +16,8 @@ public class FIFOMutex {
         // 只有自己在队首，才可以获得锁，否则阻塞
         // cas 操作失败，阻塞
         //
-        while (waiters.peek() != current || !locked.compareAndExchange(false,true)) {
+
+        while (waiters.peek() != current || !locked.compareAndSet(false,true)) {
             //使用 LockSupport 阻塞当前线程
             LockSupport.park(this);
             // 忽略线程中断，只是记录下曾经被中断过
